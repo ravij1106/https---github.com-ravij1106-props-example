@@ -32,10 +32,6 @@ export default {
     },
     methods:{
         addFriend(){
-            console.log("Entered details\nName:"+this.name
-            +"\nEmail:"+this.email
-            +"\nPhone:"+this.phone);
-
             this.$emit('add-friend',this.name, this.email, this.phone);
         }
     }
