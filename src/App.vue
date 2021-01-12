@@ -8,28 +8,36 @@
     <header>
       <h1>My Friends</h1>
     </header>
+    <new-friend @add-friend="newFriend"></new-friend>
     <ul>
       <friend-contact
         v-for = "friend in friends"
         :key="friend.id"
+        :id="friend.id"
         :name="friend.name" 
         :phone-number="friend.phone" 
         :email-address="friend.email"
-        :is-favourite="true">
+        :is-favourite="friend.isFavourite"
+        @toggle-favourite="toogleFavouriteStatus">
       </friend-contact>
     </ul>
+    <Test/>
   </section>
   </div>
 </template>
 
 <script>
 import FriendContact from './components/FriendContact.vue'
+import Test from './components/Test.vue'
+import NewFriend from './components/NewFriend.vue'
 
 export default {
   name: 'App',
   components: {
   //   HelloWorld
-    FriendContact
+    FriendContact,
+    Test,
+    NewFriend,
   },
   data() {
     return {
@@ -39,16 +47,35 @@ export default {
           name: "Manuel Lorenz",
           phone: "0123 45678 90",
           email: "manuel@localhost.com",
+          isFavourite : true
         },
         {
           id: "julie",
           name: "Julie Jones",
           phone: "0987 654421 21",
           email: "julie@localhost.com",
+          isFavourite : false
         },
       ],
     };
   },
+  methods : {
+    toogleFavouriteStatus(friendId){
+      const friend = this.friends.find((friend) => friend.id == friendId);
+      friend.isFavourite = ! friend.isFavourite;
+    },
+    newFriend(enteredName, enteredEmail, enteredPhone){
+      const newFriend = {
+        id : new Date().toISOString(),
+        name : enteredName,
+        email : enteredEmail,
+        phone : enteredPhone,
+        isFavourite : false
+      };
+
+      this.friends.push(newFriend);
+    }
+  }
 }
 </script>
 
@@ -78,7 +105,8 @@ header {
   padding: 0;
   list-style: none;
 }
-#app li {
+#app li,
+#app form {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   margin: 1rem auto;
   border-radius: 10px;
@@ -107,5 +135,19 @@ header {
   background-color: #ec3169;
   border-color: #ec3169;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
+}
+
+#app input {
+  font: inherit;
+  padding: 0.15rem;
+}
+#app label {
+  font-weight: bold;
+  margin-right: 1rem;
+  width: 7rem;
+  display: inline-block;
+}
+#app form div {
+  margin: 1rem 0;
 }
 </style>
