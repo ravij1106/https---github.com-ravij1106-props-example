@@ -10,14 +10,12 @@
     </header>
     <ul>
       <friend-contact
-        name="Ravi Joshi" 
-        phone-number="9876543210" 
-        email-address="ravi@gmail.com">
-      </friend-contact>
-      <friend-contact 
-        name="Dharmik Joshi" 
-        phone-number="7654321098" 
-        email-address="dharmik@gmail.com">
+        v-for = "friend in friends"
+        :key="friend.id"
+        :name="friend.name" 
+        :phone-number="friend.phone" 
+        :email-address="friend.email"
+        :is-favourite="true">
       </friend-contact>
     </ul>
   </section>
@@ -32,7 +30,25 @@ export default {
   components: {
   //   HelloWorld
     FriendContact
-  }
+  },
+  data() {
+    return {
+      friends: [
+        {
+          id: "manuel",
+          name: "Manuel Lorenz",
+          phone: "0123 45678 90",
+          email: "manuel@localhost.com",
+        },
+        {
+          id: "julie",
+          name: "Julie Jones",
+          phone: "0987 654421 21",
+          email: "julie@localhost.com",
+        },
+      ],
+    };
+  },
 }
 </script>
 
