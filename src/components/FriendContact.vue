@@ -14,6 +14,8 @@
         {{ emailAddress }}
       </li>
     </ul>
+    &nbsp;&nbsp;
+    <button @click="$emit('delete-friend', id);"> Delete Friend </button>
   </li>
 </template>
 
@@ -51,18 +53,10 @@ export default {
       // }
     },
   },
-  emits : {
-    'toggle-favourite' : function(id){
-      if(id){
-        console.log("id is available");
-        return true;
-      }
-      else{
-        console.warn("id is missing");
-        return false;
-      }
-    }
-  },
+  emits : [
+    'toggle-favourite',
+    'delete-friend',
+  ],
   data() {
     return {
       detailsAreVisible: false
@@ -75,7 +69,7 @@ export default {
     toggleFavourite(){
       //this.friendIsFavourite = !this.friendIsFavourite;
       this.$emit('toggle-favourite', this.id);
-    }
+    },
   }
 };
 </script>

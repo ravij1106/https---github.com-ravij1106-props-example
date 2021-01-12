@@ -18,7 +18,8 @@
         :phone-number="friend.phone" 
         :email-address="friend.email"
         :is-favourite="friend.isFavourite"
-        @toggle-favourite="toogleFavouriteStatus">
+        @toggle-favourite="toogleFavouriteStatus"
+        @delete-friend="deleteFriend">
       </friend-contact>
     </ul>
     <Test/>
@@ -74,6 +75,9 @@ export default {
       };
 
       this.friends.push(newFriend);
+    },
+    deleteFriend (friendId){
+      this.friends = this.friends.filter(friend => friend.id !== friendId);
     }
   }
 }
